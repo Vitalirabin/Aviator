@@ -27,9 +27,13 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         buttonPlay.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.container, PlayFragment(), null)
-                .commit()
+            (requireActivity() as MainActivity).pushBackStack(PlayFragment())
+        }
+        buttonSetting.setOnClickListener {
+            (requireActivity() as MainActivity).pushBackStack(SettingFragment())
+        }
+        buttonInfo.setOnClickListener {
+            (requireActivity() as MainActivity).pushBackStack(InfoFragment())
         }
     }
 }

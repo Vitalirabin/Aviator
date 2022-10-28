@@ -1,12 +1,22 @@
 <resources>
     <string name="app_name">Aviator</string>
 
-    <string name="bid">Ставка</string>
+    <string name="bid">Bid</string>
     <string name="play">Play</string>
-    <string name="score">Счет:</string>
-    <string name="menu_play">Играть</string>
-    <string name="setting">Настройки</string>
-    <string name="info">Информация</string>
-    <string name="volume">Звук</string>
-    <string name="vibration">Вибрация</string>
+    <string name="score">Score:</string>
+    <string name="menu_play">Play</string>
+    <string name="setting">Setting</string>
+    <string name="info">Information</string>
+    <string name="volume">Volume</string>
+    <string name="vibration">Vibration</string>
+    <string name="menu">Menu</string>
+
+    <string name="about_bid">Bet Here you can choose how many points you will play.</string>
+    <string name="rate_increase">Rate increase.</string>
+    <string name="rate_reduction">Rate reduction.</string>
+    <string name="score_info">Your score. At the beginning, everyone is given 10,000 points.</string>
+    <string name="time_info">Flight time.</string>
+    <string name="time_example">Time:2.13</string>
+    <string name="score_multiplier">Score multiplier.</string>
+    <string name="score_example">1.77</string>
 </resources>

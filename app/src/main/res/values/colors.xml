@@ -12,4 +12,5 @@
     <color name="button_play">#FFFF00</color>
     <color name="sky_white">#7EFFFFFF</color>
     <color name="sky_purple">#7E7400BD</color>
+    <color name="red">#EF1A16</color>
 </resources>
