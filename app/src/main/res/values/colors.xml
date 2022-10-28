@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="switch_background">#B5FFFFFF</color>
+    <color name="points">#FFE600</color>
+    <color name="button_play">#FFFF00</color>
+    <color name="sky_white">#7EFFFFFF</color>
+    <color name="sky_purple">#7E7400BD</color>
 </resources>
