@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/rocket_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,28 +45,29 @@
 
         <ImageButton
             android:id="@+id/button_bid_minus"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:src="@mipmap/icon_minus"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bid"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/button_bid_plus"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:src="@mipmap/icon_plus"
-            app:layout_constraintStart_toEndOf="@+id/bid_count"
+            app:layout_constraintStart_toEndOf="@+id/bid"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/bid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="40dp"
             android:text="@string/bid"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +78,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="TextView"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/bid"
             app:layout_constraintHorizontal_bias="0.0"
@@ -110,12 +110,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="TextView"
+            android:text=""
             android:textColor="@color/points"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/time_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/points"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
