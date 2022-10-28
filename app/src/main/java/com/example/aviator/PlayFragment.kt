@@ -2,6 +2,9 @@ package com.example.aviator
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.res.AssetManager
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +21,13 @@ import androidx.lifecycle.ViewModelProviders
 class PlayFragment : Fragment() {
 
     private lateinit var playViewModel: PlayViewModel
+
+    private lateinit var soundPool: SoundPool
+    private lateinit var assetManager: AssetManager
+    private var streamID = 0
+    private var bum = 0
+    private var fly = 0
+
 
     private lateinit var rocketView: ImageView
     private lateinit var pointsView: TextView
@@ -40,6 +50,16 @@ class PlayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_play, container, false)
+        val attributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+        soundPool = SoundPool.Builder()
+            .setAudioAttributes(attributes)
+            .build()
+        assetManager = requireActivity().assets
+        bum = soundPool.load(assetManager.openFd("explosion.ogg"), 1)
+        fly = soundPool.load(assetManager.openFd("rocket_flight_sound.ogg"), 1);
         return view
     }
 
@@ -127,8 +147,26 @@ class PlayFragment : Fragment() {
             }
         }
         val time = startPlayAnimation()
+        playSound(fly)
         score += ((bid * time / 4000).toInt())
-        android.os.Handler().postDelayed({ scoreView.text = score.toString() }, time)
+        android.os.Handler().postDelayed({
+            soundPool.stop(fly)
+            scoreView.text = score.toString()
+            playSound(bum)
+        }, time)
         playViewModel.setScore(context, score)
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        soundPool.release()
+    }
+
+    private fun playSound(sound: Int): Int {
+        if (sound > 0) {
+            streamID = soundPool.play(sound, 1F, 1F, 1, 0, 1F)
+        }
+        return streamID
     }
 }
