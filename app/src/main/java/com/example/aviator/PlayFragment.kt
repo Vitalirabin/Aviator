@@ -2,7 +2,6 @@ package com.example.aviator
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.AssetManager
 import android.media.AudioAttributes
 import android.media.SoundPool
@@ -16,9 +15,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import org.chromium.base.compat.ApiHelperForM.getSystemService
 
 
 class PlayFragment : Fragment() {
@@ -118,7 +117,7 @@ class PlayFragment : Fragment() {
             pointsView.text =
                 String.format(
                     "%.2f",
-                    ((it.getAnimatedValue().toString().toFloat()) / 4000)
+                    ((it.getAnimatedValue().toString().toFloat()) / 6000)
                 )
         }
         rocketAnimation.duration = time
@@ -158,13 +157,19 @@ class PlayFragment : Fragment() {
         }
         val time = startPlayAnimation()
         playSound(fly)
-        score += ((bid * time / 4000).toInt())
+        score += ((bid * time / 6000).toInt())
         android.os.Handler().postDelayed({
             soundPool.stop(fly)
             scoreView.text = score.toString()
             playSound(bum)
             rocketView.visibility = View.INVISIBLE
             bumView.visibility = View.VISIBLE
+            bumView.bottom = rocketView.bottom
+            bumView.top = rocketView.top
+            if (playViewModel.getVibro(requireContext())) {
+                val vibro = getSystemService(requireContext(), Vibrator::class.java) as Vibrator
+                vibro.vibrate(1000)
+            }
             bumView.startAnimation(bumAnimation)
         }, time)
         android.os.Handler().postDelayed({

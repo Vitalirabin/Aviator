@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 private const val SHARED_QUERY = "shared_prefs"
 private const val SCORE = "score"
 private const val MUTE = "mute"
+private const val VIBRO = "vibro"
 
 
 class PlayViewModel : ViewModel() {
@@ -23,7 +24,13 @@ class PlayViewModel : ViewModel() {
         sharedPrefs?.edit()?.putInt(SCORE, score)?.apply()
     }
 
-    fun getMute(context: Context?):Boolean?{
-        return context?.getSharedPreferences(SHARED_QUERY,Context.MODE_PRIVATE)?.getBoolean(MUTE,true)
+    fun getMute(context: Context?): Boolean? {
+        return context?.getSharedPreferences(SHARED_QUERY, Context.MODE_PRIVATE)
+            ?.getBoolean(MUTE, true)
+    }
+
+    fun getVibro(context: Context): Boolean {
+        return context.getSharedPreferences(SHARED_QUERY, Context.MODE_PRIVATE)
+            .getBoolean(VIBRO, true)
     }
 }

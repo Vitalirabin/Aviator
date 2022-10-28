@@ -12,10 +12,15 @@ import androidx.fragment.app.Fragment
 
 private const val SHARED_QUERY = "shared_prefs"
 private const val MUTE = "mute"
+private const val VIBRO = "vibro"
+
 
 class SettingFragment : Fragment() {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var volumeIsChecked: Switch
+
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private lateinit var vibroIsChecked: Switch
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,13 +33,22 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         volumeIsChecked = view.findViewById(R.id.volume)
+        vibroIsChecked = view.findViewById(R.id.vibration)
         val sharedPrefs = requireContext().getSharedPreferences(SHARED_QUERY, Context.MODE_PRIVATE)
-        volumeIsChecked.isChecked=sharedPrefs.getBoolean(MUTE,true)
+        volumeIsChecked.isChecked = sharedPrefs.getBoolean(MUTE, true)
+        vibroIsChecked.isChecked = sharedPrefs.getBoolean(VIBRO, true)
         volumeIsChecked.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 sharedPrefs.edit().putBoolean(MUTE, isChecked).apply()
             } else {
                 sharedPrefs.edit().putBoolean(MUTE, isChecked).apply()
+            }
+        }
+        vibroIsChecked.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sharedPrefs.edit().putBoolean(VIBRO, isChecked).apply()
+            } else {
+                sharedPrefs.edit().putBoolean(VIBRO, isChecked).apply()
             }
         }
         view.findViewById<Button>(R.id.button_menu).setOnClickListener {
