@@ -21,6 +21,9 @@ class MenuFragment : Fragment() {
         buttonSetting = view.findViewById<Button>(R.id.button_setting)
         buttonInfo = view.findViewById<Button>(R.id.button_info)
         buttonPlay = view.findViewById<Button>(R.id.button_menu_play)
+        buttonInfo.isClickable = true
+        buttonSetting.isClickable = true
+        buttonPlay.isClickable = true
         return view
     }
 
@@ -28,12 +31,21 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         buttonPlay.setOnClickListener {
             (requireActivity() as MainActivity).pushBackStack(PlayFragment())
+            buttonInfo.isClickable = false
+            buttonSetting.isClickable = false
+            buttonPlay.isClickable = false
         }
         buttonSetting.setOnClickListener {
             (requireActivity() as MainActivity).pushBackStack(SettingFragment())
+            buttonInfo.isClickable = false
+            buttonSetting.isClickable = false
+            buttonPlay.isClickable = false
         }
         buttonInfo.setOnClickListener {
             (requireActivity() as MainActivity).pushBackStack(InfoFragment())
+            buttonInfo.isClickable = false
+            buttonSetting.isClickable = false
+            buttonPlay.isClickable = false
         }
     }
 }
