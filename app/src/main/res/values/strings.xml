@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Aviator</string>
+
+    <string name="bid">Ставка</string>
+    <string name="play">Play</string>
+    <string name="score">Счет:</string>
+    <string name="menu_play">Играть</string>
+    <string name="setting">Настройки</string>
+    <string name="info">Информация</string>
+    <string name="volume">Звук</string>
+    <string name="vibration">Вибрация</string>
 </resources>
