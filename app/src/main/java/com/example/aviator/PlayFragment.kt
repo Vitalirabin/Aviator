@@ -1,5 +1,6 @@
 package com.example.aviator
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,9 +41,16 @@ class PlayFragment : Fragment() {
 
     fun startPlayAnimation() {
         rocketAnimation = AnimationUtils.loadAnimation(context, R.anim.rocket_anim)
-        rocketAnimation.duration = (3000..10000).random().toLong()
+        val time = (3000..10000).random().toLong()
+        val valueAnimator = ValueAnimator.ofInt("0".toInt(), time.toInt())
+        valueAnimator.duration = time
+        valueAnimator.addUpdateListener {
+            pointsView.text = (it.getAnimatedValue().toString().toFloat() / 1000).toString()
+        }
+        rocketAnimation.duration = time
         rocketView.startAnimation(rocketAnimation)
-    }
+        valueAnimator.start()
 
+    }
 
 }
