@@ -2,10 +2,12 @@ package com.example.aviator
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.AssetManager
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 
@@ -28,16 +31,18 @@ class PlayFragment : Fragment() {
     private var bum = 0
     private var fly = 0
 
-
     private lateinit var rocketView: ImageView
     private lateinit var pointsView: TextView
     private lateinit var constraintLayoutPlay: ConstraintLayout
     private lateinit var rocketAnimation: Animation
+    private lateinit var bumAnimation: Animation
     private lateinit var scoreView: TextView
     private lateinit var timeView: TextView
     private lateinit var bidView: TextView
     private lateinit var bidPlusButton: ImageButton
     private lateinit var bidMinusButton: ImageButton
+    private lateinit var bumView: ImageView
+    private lateinit var buttonPlay: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         playViewModel = ViewModelProviders.of(this).get(PlayViewModel::class.java)
@@ -72,10 +77,13 @@ class PlayFragment : Fragment() {
         bidView = view.findViewById(R.id.bid_count)
         bidPlusButton = view.findViewById(R.id.button_bid_plus)
         bidMinusButton = view.findViewById(R.id.button_bid_minus)
+        bumView = view.findViewById(R.id.bum_view)
+        buttonPlay = view.findViewById(R.id.button_play)
         bidView.text = (50).toString()
         scoreView.text = playViewModel.getScore(context).toString()
         constraintLayoutPlay = view.findViewById(R.id.constraint_layout_play)
-        view.findViewById<Button>(R.id.button_play).setOnClickListener {
+        buttonPlay.setOnClickListener {
+            buttonPlay.isClickable = false
             play()
         }
         bidPlusButton.setOnClickListener {
@@ -93,13 +101,15 @@ class PlayFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun startPlayAnimation(): Long {
+        bumAnimation = AnimationUtils.loadAnimation(context, R.anim.bum_anim)
+        bumAnimation.duration = 1000
         rocketAnimation = AnimationUtils.loadAnimation(context, R.anim.rocket_anim)
         val time = (3000..10000).random().toLong()
         val valueAnimator = ValueAnimator.ofInt("0".toInt(), time.toInt())
         valueAnimator.duration = time
         valueAnimator.addUpdateListener {
             timeView.text =
-                "Время: ${
+                "Time: ${
                     String.format(
                         "%.2f",
                         (it.getAnimatedValue().toString().toFloat() / 1000)
@@ -153,7 +163,17 @@ class PlayFragment : Fragment() {
             soundPool.stop(fly)
             scoreView.text = score.toString()
             playSound(bum)
+            rocketView.visibility = View.INVISIBLE
+            bumView.visibility = View.VISIBLE
+            bumView.startAnimation(bumAnimation)
         }, time)
+        android.os.Handler().postDelayed({
+            rocketView.visibility = View.VISIBLE
+            bumView.visibility = View.INVISIBLE
+            val choseFragment = ChoseFragment()
+            choseFragment.show(requireActivity().supportFragmentManager, "choseFragment")
+            buttonPlay.isClickable = true
+        }, time + 1000)
         playViewModel.setScore(context, score)
     }
 
@@ -164,9 +184,12 @@ class PlayFragment : Fragment() {
     }
 
     private fun playSound(sound: Int): Int {
-        if (sound > 0) {
-            streamID = soundPool.play(sound, 1F, 1F, 1, 0, 1F)
+        if (playViewModel.getMute(context) ?: true) {
+            if (sound > 0) {
+                streamID = soundPool.play(sound, 1F, 1F, 1, 0, 1F)
+            }
+            return streamID
         }
-        return streamID
+        return 0
     }
 }
