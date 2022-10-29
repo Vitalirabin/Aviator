@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import org.chromium.base.Log
 
 class MenuFragment : Fragment() {
     private lateinit var buttonPlay: Button
@@ -21,9 +22,6 @@ class MenuFragment : Fragment() {
         buttonSetting = view.findViewById<Button>(R.id.button_setting)
         buttonInfo = view.findViewById<Button>(R.id.button_info)
         buttonPlay = view.findViewById<Button>(R.id.button_menu_play)
-        buttonInfo.isClickable = true
-        buttonSetting.isClickable = true
-        buttonPlay.isClickable = true
         return view
     }
 
@@ -31,21 +29,32 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         buttonPlay.setOnClickListener {
             (requireActivity() as MainActivity).pushBackStack(PlayFragment())
-            buttonInfo.isClickable = false
-            buttonSetting.isClickable = false
-            buttonPlay.isClickable = false
         }
         buttonSetting.setOnClickListener {
             (requireActivity() as MainActivity).pushBackStack(SettingFragment())
-            buttonInfo.isClickable = false
-            buttonSetting.isClickable = false
-            buttonPlay.isClickable = false
         }
         buttonInfo.setOnClickListener {
             (requireActivity() as MainActivity).pushBackStack(InfoFragment())
-            buttonInfo.isClickable = false
-            buttonSetting.isClickable = false
-            buttonPlay.isClickable = false
         }
+    }
+
+    override fun onStart() {
+        Log.i("MenuFragment", "onStart")
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("MenuFragment", "onResume")
+    }
+
+    override fun onStop() {
+        Log.i("MenuFragment", "onStop")
+        super.onStop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("MenuFragment", "onPause")
     }
 }

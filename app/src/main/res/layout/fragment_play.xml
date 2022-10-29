@@ -10,6 +10,7 @@
         android:id="@+id/sky_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@mipmap/main_background_foreground"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -90,8 +91,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:textAlignment="center"
-            android:textSize="16sp"
             android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/bid"
             app:layout_constraintStart_toStartOf="@+id/bid"
             app:layout_constraintTop_toBottomOf="@+id/bid" />
@@ -138,6 +139,18 @@
         android:textColor="@color/points"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/textView2"
+        android:layout_width="546dp"
+        android:layout_height="99dp"
+        android:background="@color/invisible"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.893" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
